@@ -1,7 +1,7 @@
 // chi tiết hoa don
 package com.medicalsuppliesmanagement.invoice.entity;
 
-import com.medicalsuppliesmanagement.material.entity.Material;
+import com.medicalsuppliesmanagement.medical_supply.entity.MedicalSupply;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class InvoiceItem {
     
     @ManyToOne
     @JoinColumn(name = "material_id")
-    private Material material;
+    private MedicalSupply material;
     
     @Column(name = "quantity")
     private Integer quantity;

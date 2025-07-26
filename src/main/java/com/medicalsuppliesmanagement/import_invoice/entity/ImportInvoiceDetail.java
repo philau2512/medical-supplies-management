@@ -1,7 +1,7 @@
-package com.medicalsuppliesmanagement.importinvoice.entity;
+package com.medicalsuppliesmanagement.import_invoice.entity;
 
 // Chi tiết hóa đơn nhập kho
-import com.medicalsuppliesmanagement.material.entity.Material;
+import com.medicalsuppliesmanagement.medical_supply.entity.MedicalSupply;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,24 +9,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "import_invoice_items")
+@Table(name = "import_invoice_details")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImportInvoiceItem {
+public class ImportInvoiceDetail {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @ManyToOne
-    @JoinColumn(name = "invoice_id")
+    @JoinColumn(name = "import_invoice_id", nullable = false)
     private ImportInvoice importInvoice;
-    
+
     @ManyToOne
-    @JoinColumn(name = "material_id")
-    private Material material;
+    @JoinColumn(name = "supply_id", nullable = false)
+    private MedicalSupply medicalSupply;
     
     @Column(name = "quantity")
     private Integer quantity;
@@ -36,7 +36,4 @@ public class ImportInvoiceItem {
     
     @Column(name = "total_price")
     private Double totalPrice;
-    
-    @Column(name = "note", columnDefinition = "TEXT")
-    private String note;
 }

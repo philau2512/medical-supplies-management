@@ -1,10 +1,13 @@
 package com.medicalsuppliesmanagement.category.entity;
 
+import com.medicalsuppliesmanagement.medical_supply.entity.MedicalSupply;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -23,4 +26,7 @@ public class Category {
     
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<MedicalSupply> medicalSupplies;
 }

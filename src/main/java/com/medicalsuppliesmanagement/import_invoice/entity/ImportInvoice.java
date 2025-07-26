@@ -1,8 +1,8 @@
 // Hóa đơn nhập kho
-package com.medicalsuppliesmanagement.importinvoice.entity;
+package com.medicalsuppliesmanagement.import_invoice.entity;
 
+import com.medicalsuppliesmanagement.customer.entity.Customer;
 import com.medicalsuppliesmanagement.employee.entity.Employee;
-import com.medicalsuppliesmanagement.supplier.entity.Supplier;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImportInvoice {
+public class ImportInvoice { // hóa đơn nhập kho
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,15 +29,18 @@ public class ImportInvoice {
     
     @Column(name = "create_at")
     private LocalDateTime createAt;
-    
+
     @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    private Supplier supplier;
-    
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
+
     @ManyToOne
-    @JoinColumn(name = "created_by")
-    private Employee createdBy;
+    @JoinColumn(name = "supplier_id", nullable = false)
+    private Customer supplier;
+
+    @Column(name = "total_amount")
+    private Double totalAmount;
     
     @OneToMany(mappedBy = "importInvoice", cascade = CascadeType.ALL)
-    private List<ImportInvoiceItem> importInvoiceItems;
+    private List<ImportInvoiceDetail> importInvoiceItems;
 }

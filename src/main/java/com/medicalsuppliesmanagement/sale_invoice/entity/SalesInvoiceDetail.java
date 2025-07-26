@@ -1,6 +1,6 @@
-package com.medicalsuppliesmanagement.saleinvoice.entity;
+package com.medicalsuppliesmanagement.sale_invoice.entity;
 
-import com.medicalsuppliesmanagement.material.entity.Material;
+import com.medicalsuppliesmanagement.medical_supply.entity.MedicalSupply;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,34 +8,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "sales_invoice_items")
+@Table(name = "sales_invoice_details")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SalesInvoiceItem {
-    
+
+public class SalesInvoiceDetail {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @ManyToOne
-    @JoinColumn(name = "invoice_id")
+    @JoinColumn(name = "sales_invoice_id", nullable = false)
     private SalesInvoice salesInvoice;
-    
+
     @ManyToOne
-    @JoinColumn(name = "material_id")
-    private Material material;
-    
+    @JoinColumn(name = "supply_id", nullable = false)
+    private MedicalSupply medicalSupply;
+
     @Column(name = "quantity")
     private Integer quantity;
-    
-    @Column(name = "unit_price")
-    private Double unitPrice;
-    
+
+    @Column(name = "price")
+    private Double price;
+
     @Column(name = "total_price")
     private Double totalPrice;
-    
-    @Column(name = "note", columnDefinition = "TEXT")
-    private String note;
 }
+

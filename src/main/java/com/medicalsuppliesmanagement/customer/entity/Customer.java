@@ -13,20 +13,32 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
-    
+
+    public enum CustomerType {
+        WHOLESALE, SUPPLIER, RETAIL // (sỉ, nhà cc, lẻ )
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+    private Long customerId;
+
+    @Column(name = "customer_code", unique = true, length = 20)
+    private String customerCode;
+
     @Column(name = "name")
     private String name;
-    
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private CustomerType type;
+
     @Column(name = "address")
     private String address;
-    
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    
-    @Column(name = "avatar", columnDefinition = "TEXT")
-    private String avatar;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "email")
+    private String email;
 }
+

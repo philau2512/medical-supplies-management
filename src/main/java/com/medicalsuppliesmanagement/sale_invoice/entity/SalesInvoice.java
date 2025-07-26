@@ -1,4 +1,4 @@
-package com.medicalsuppliesmanagement.saleinvoice.entity;
+package com.medicalsuppliesmanagement.sale_invoice.entity;
 
 import com.medicalsuppliesmanagement.customer.entity.Customer;
 import com.medicalsuppliesmanagement.employee.entity.Employee;
@@ -18,37 +18,32 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SalesInvoice {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(name = "invoice_code")
-    private String invoiceCode;
-    
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-    
+
+    @Column(name = "order_code", unique = true, nullable = false)
+    private String orderCode;
+
     @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
-    
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
+
+    @Column(name = "order_date", nullable = false)
+    private LocalDateTime orderDate;
+
     @Column(name = "total_amount")
     private Double totalAmount;
-    
-    @Column(name = "discount_amount")
-    private Double discountAmount;
-    
-    @Column(name = "vat_amount")
-    private Double vatAmount;
-    
-    @Column(name = "note", columnDefinition = "TEXT")
-    private String note;
-    
+
+    @Column(name = "notes", columnDefinition = "TEXT")
+    private String notes;
+
     @OneToMany(mappedBy = "salesInvoice", cascade = CascadeType.ALL)
-    private List<SalesInvoiceItem> salesInvoiceItems;
+    private List<SalesInvoiceDetail> details;
 }
+

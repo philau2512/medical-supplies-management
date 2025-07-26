@@ -1,5 +1,6 @@
 package com.medicalsuppliesmanagement.employee.entity;
 
+import com.medicalsuppliesmanagement.auth.entity.UserAccount;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,30 +18,15 @@ public class Employee {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(name = "employee_code")
+    private Long employeeId;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserAccount userAccount;
+
+    @Column(name = "employee_code", unique = true, length = 20)
     private String employeeCode;
-    
-    @Column(name = "name")
-    private String name;
-    
-    @Column(name = "gender")
-    private Boolean gender;
-    
-    @Column(name = "birthday")
-    private LocalDate birthday;
-    
-    @Column(name = "address")
-    private String address;
-    
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    
-    @Column(name = "email")
-    private String email;
-    
-    @ManyToOne
-    @JoinColumn(name = "position_id")
-    private Position position;
+
+    @Column(name = "position", length = 50)
+    private String position;
 }
